@@ -1,0 +1,44 @@
+{% extends "core/base.html" %}
+
+{% load bootstrap3 %}
+{% block content %}
+    <legend>Blogs list</legend>
+    {% if user.is_authenticated %}
+        <legend>
+            <div class="new_cat">
+                <a href="{% url "blog:new_blog" %}">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    Create new blog
+                </a>
+            </div>
+        </legend>
+    {% endif %}
+    {% for blog in object_list %}
+        <ol>
+            <em>{{ forloop.counter }}. </em>
+            <a href="{% url "blog:blogWithItsPosts" ident=blog.id %}">{{ blog.name }} </a>
+            <text>
+                created at {{ blog.createdata }} by {{ blog.author }}
+            </text>
+        </ol>
+    {% endfor %}
+{% endblock %}
+{% block backward %}
+    <a href="{% url "core:mainpg" %}">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+{% endblock %}
+{% block searchform %}
+    <div class="navbar-form navbar-left">
+        <div class="form-group">
+            <form action="" method="get">
+                <div class="form-group">
+                    {% for field in searchform %}
+                        {% bootstrap_field field show_label=False %}
+                    {% endfor %}
+                </div>
+                <button class="btn btn-default" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

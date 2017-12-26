@@ -1,0 +1,8 @@
+<form data-formtype="ajaxForm" action="{% url "blog:new_post" ident=blog_id %}" method="post">
+    {{ form }}
+    {% csrf_token %}
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <input type="submit" class="btn btn-primary" value="Save">
+    </div>
+</form>

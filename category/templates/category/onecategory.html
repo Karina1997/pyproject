@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+    <h4>Blogs in category: {{ category_name }}</h4>
+
+    {% for blog in object_list %}
+    <div>
+        <em>{{forloop.counter}}. </em>
+        <a href="{% url "blog:blogWithItsPosts" ident=blog.id %}"> {{blog}} </a>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+{% block backward %}
+<a href="{% url "category:categoriespage"%}">
+<span class="glyphicon glyphicon-chevron-left"></span>
+</a>
+{% endblock %}

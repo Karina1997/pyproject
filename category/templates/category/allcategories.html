@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+    <h4> All categories </h4>
+    {% if user.is_authenticated %}
+        <ol>
+            <div class="new_cat">
+                <a href="{% url "category:newcategory" %}">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    New category
+                </a>
+            </div>
+        </ol>
+        {% endif %}
+    {% for category in categories %}
+        <ol>
+            <em>{{forloop.counter}}. </em>
+            <a href="{% url "category:onecategory" ident=category.id %}">{{category}}</a>
+        </ol>
+    {% endfor %}
+{% endblock %}
+{{% block backward %}
+<a href="{% url "core:mainpg" %}">
+<span class="glyphicon glyphicon-chevron-left"></span>
+</a>
+{% endblock %}

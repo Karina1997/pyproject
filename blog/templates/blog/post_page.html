@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+{% load bootstrap3 %}
+{% load static %}
+
+{% block content %}
+    <script src="{% static "likepost.js" %}" type="text/javascript"></script>
+    <div>
+        {% if user.id == post.author.id %}
+            <a href="{% url "blog:edit_post" pk=post.id %}"> Edit </a>
+        {% endif %}
+    </div>
+    <legend>Post name</legend>
+    <text>{{ post.postname }} </text>
+    <legend> Post text</legend>
+    <text>{{ post.text }} </text>
+
+    <legend></legend>
+    <meta name="csrf" content="{{ csrf_token }}">
+    Количество лайков поста:
+    <span id="likes-{{ post.id }}">{{ likes }} </span>
+    {% if user.is_authenticated %}
+        <button class="btn ajaxlike" data-url="{% url "blog:post_ajax_like" ident=post.id %}"
+                data-postid="{{ post.id }}">Лайкнуть
+        </button>
+    {% endif %}
+
+    <legend> Comments</legend>
+
+    {% for comment in comment_list %}
+        <ol>
+            <em>{{ forloop.counter }}. </em>
+            {{ comment.text }} by {{ comment.author }} at {{ comment.createdata }}
+        </ol>
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <form action="" method="post">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <input type="submit" value="Comment">
+        </form>
+    {% endif %}
+
+{% endblock %}
+{% block backward %}
+    <a href="{% url "blog:blogWithItsPosts" ident=post.blog.id %}">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+{% endblock %}

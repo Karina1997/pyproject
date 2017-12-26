@@ -1,0 +1,74 @@
+{% load bootstrap3 %}
+<!doctype html>
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li>
+                    {% block backward %}
+                    {% endblock %}
+                </li>
+            </ul>
+            <div class="navbar-header">
+                <div class="navbar-brand">
+                    Blog
+                </div>
+            </div>
+            <ul class="nav navbar-nav">
+                  <li><a href="{% url "core:mainpg" %}">Home</a></li>
+                  <li><a href="{% url "blog:listOfBlogs" %}">Blog list</a></li>
+                  <li><a href="{% url "category:categoriespage" %}">Category list</a></li>
+            </ul>
+            {% block searchform %}
+            {% endblock %}
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                    <li class="active"><a><span class="glyphicon glyphicon-user"></span> {{user.username }}</a></li>
+                    <li><a href="{% url "core:logout" %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                {% else %}
+                    <li><a href="{% url "core:register" %}"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
+                    <li><a href="{% url "core:login" %}"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+<div class="container">
+{% block content %}
+    <legend>List of latest created blogs:</legend>
+    {% for blog in latest_articles %}
+        <ol>
+            <em>
+                {{forloop.counter}}.
+            </em>
+            <a href="{% url "blog:blogWithItsPosts" ident=blog.id %}">{{blog.name}}</a>
+            <text> ({{blog.author}})</text>
+        </ol>
+    {% endfor %}
+    <legend>List of latest created categories:</legend>
+        {% for category in latest_categories %}
+            <ol>
+                <em>
+                    {{forloop.counter}}.
+                </em>
+                <a href="{% url "category:onecategory" ident=category.id %}"> {{category}} </a>
+            </ol>
+        {% endfor %}
+    <h3>Amount of blogs: {{blog_count}}</h3>
+    <h3>Amount of posts: {{post_count}}</h3>
+    <h3>Amount of comments: {{comment_count}}</h3>
+    <h3>Amount of categories: {{category_count}}</h3>
+{% endblock%}
+</div>
+</body>

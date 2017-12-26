@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+{% load bootstrap3 %}
+{% load widget_tweaks %}
+
+{% load static %}
+{% block content %}
+    <script src="{% static "newblog.js" %}" type="text/javascript"></script>
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="http://alxlit.name/bootstrap-chosen/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://harvesthq.github.io/chosen/chosen.jquery.js"></script>
+    <form action="" method="post">
+        {% bootstrap_field form.name show_label=False %}
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Категории</label>
+            {% render_field form.category class+="form-control" %}
+        </div>
+        {% csrf_token %}
+        <input type="submit" value="Create">
+    </form>
+{% endblock %}
+{% block backward %}
+    <a href="{% url "blog:listOfBlogs" %}">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+    </a>
+{% endblock %}
