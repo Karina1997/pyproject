@@ -34,6 +34,8 @@ AUTH_USER_MODEL = 'core.User'
 MEDIA_URL = '/Users/karinazajnullina/projects/media/'
 MEDIA_ROOT = '/Users/karinazajnullina/projects/media/'
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
