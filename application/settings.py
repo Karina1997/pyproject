@@ -139,6 +139,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/Users/karinazajnullina/projects/media/staticfiles'
 LOGIN_URL = 'core:login'
 LOGIN_REDIRECT_URL = 'core:mainpg'
 
