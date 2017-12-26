@@ -25,7 +25,7 @@ SECRET_KEY = '4+464%+4sehxz-gg_a(47_nkl1kipv7o*&4zqb_9q93*^q3tqm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['intense-journey-30055.herokuapp.com']
 
 AUTH_USER_MODEL = 'core.User'
 
