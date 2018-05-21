@@ -5,7 +5,6 @@ $(document).ready(
     console.log(data);
     var likesSpan = $('#likes-' + data.postid);
     $.ajax({url: data.url, method:'post'}).done(function(data, status, response) {
-        alert(data);
         $(likesSpan).html(data)});
     return false;
 }))
