@@ -24,7 +24,6 @@ class PostPage(CreateView):
 
     def dispatch(self, request, *args, **kwargs):
         self.postobject = get_object_or_404(Post, id=self.kwargs['ident'])
-        #  self.blogobject = get_object_or_404(Blog, id=self.kwargs['identer'])
         return super(PostPage, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -160,7 +159,10 @@ class PostLikeAjaxView(View):
                 author=self.request.user).exists():
             b2 = Like(author=self.request.user, post=self.post_object)
             b2.save()
-            return HttpResponse(Like.objects.filter(post=self.post_object).count())
+        else:
+            b2 = self.post_object.likes.get(author=self.request.user)
+            b2.delete()
+        return HttpResponse(Like.objects.filter(post=self.post_object).count())
 
 
 class PostUpdate(UpdateView):

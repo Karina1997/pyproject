@@ -27,7 +27,7 @@ SECRET_KEY = '4+464%+4sehxz-gg_a(47_nkl1kipv7o*&4zqb_9q93*^q3tqm'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['intense-journey-30055.herokuapp.com']
+ALLOWED_HOSTS = ['intense-journey-30055.herokuapp.com', 'localhost']
 
 AUTH_USER_MODEL = 'core.User'
 
@@ -37,6 +37,23 @@ MEDIA_URL = '/Users/karinazajnullina/projects/media/'
 MEDIA_ROOT = '/Users/karinazajnullina/projects/media/'
 
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        }
+    },
+    'loggers': {
+        'django.db.backends': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    }
+}
 
 INSTALLED_APPS = [
     'django.contrib.admin',

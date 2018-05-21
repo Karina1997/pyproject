@@ -4,7 +4,9 @@ $(document).ready(
     var data = $(this).data();
     console.log(data);
     var likesSpan = $('#likes-' + data.postid);
-    $.ajax({url: data.url, method:'post'}).done(function(data, status, response) {$(likesSpan).html(data)});
+    $.ajax({url: data.url, method:'post'}).done(function(data, status, response) {
+        alert(data);
+        $(likesSpan).html(data)});
     return false;
 }))
 
@@ -12,7 +14,6 @@ $(document).ready(
     function func () {
 
         function csrfSafeMethod(method) {
-            // these HTTP methods do not require CSRF protection
             return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
         }
         $.ajaxSetup({

@@ -10,4 +10,4 @@ from .models import Blog
 
 admin.site.register(Post)
 
-admin.site.register(Blog)
+admin.site.register

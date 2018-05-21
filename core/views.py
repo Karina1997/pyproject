@@ -9,12 +9,10 @@ from core.models import User
 from category.models import Category
 from django import forms
 
+
 # Create your views here.
-#def base_page (request, name=''):
-#        return render(request, 'core/base.html', {'name': name})
 
 class HomePageView(TemplateView):
-
     template_name = "core/base.html"
 
     def get_context_data(self, **kwargs):
