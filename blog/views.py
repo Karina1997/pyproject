@@ -165,8 +165,27 @@ class PostLikeAjaxView(View):
         return HttpResponse(Like.objects.filter(post=self.post_object).count())
 
 
-class PostUpdate(UpdateView):
+class BlogUpdate(UpdateView):
     template_name = 'blog/edit_blog.html'
+    model = Blog
+    fields = 'name', 'category'
+
+    def form_valid(self, form):
+        if self.object.author == self.request.user:
+            super(BlogUpdate, self).form_valid(form)
+            return super(BlogUpdate, self).form_valid(form)
+        else:
+            return HttpResponseRedirect(404)
+
+    def get_queryset(self):
+        return super(BlogUpdate, self).get_queryset().filter(author=self.request.user)
+
+    def get_success_url(self):
+        return reverse('blog:listOfBlogs')
+
+
+class PostUpdate(UpdateView):
+    template_name = 'blog/edit_post.html'
     model = Post
     fields = 'postname', 'text'
 
@@ -174,7 +193,7 @@ class PostUpdate(UpdateView):
         if self.object.author == self.request.user:
             return super(PostUpdate, self).form_valid(form)
         else:
-            return HttpResponseRedirect(reverse('blog:change'))
+            return HttpResponseRedirect(404)
 
     def get_queryset(self):
         return super(PostUpdate, self).get_queryset().filter(author=self.request.user)

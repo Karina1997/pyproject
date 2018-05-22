@@ -1,14 +1,8 @@
-{% extends "core/base.html" %}
 {% load bootstrap3 %}
-{% block content %}
-    <form action="" method="post">
-        {% bootstrap_form form %}
-        {% csrf_token %}
-        <input type="submit" value="Update">
-    </form>
-{% endblock %}
-{% block backward %}
-    <a href="{% url "blog:concretePost" ident=post.id %}">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-    </a>
-{% endblock %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<form data-formtype="ajaxForm" action="{% url "blog:edit_blog" pk=blog.id %}" method="post">
+    {% bootstrap_form form show_label=False %}
+    {% csrf_token %}
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <input type="submit" class="btn btn-primary" value="Save">
+</form>
